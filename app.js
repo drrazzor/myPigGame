@@ -19,25 +19,36 @@
 	if(gamePlaying){
 	// generate random number
 	var dice =Math.floor((Math.random() * 6) + 1);
-	diceNum = dice;
+	console.log("dice value "+dice+" diceNum value " + diceNum);
+	if(dice == 6 && diceNum == 6){
+		roundScore = 0;
+		scores[activePlayer] = 0;
+		document.querySelector('#current-' + activePlayer).textContent = roundScore;
+		console.log("Rolled 6 twice.. Player back to score Zero. Swithing players");
+		nextPlayer();
+		//Update the round score if the rolled number IS NOT A 1.
+	}else if(dice == 1){
+		console.log("Rolled a 1.. Switching player");
+		roundScore = roundScore + dice;
+		document.querySelector('#current-' + activePlayer).textContent = roundScore;
+		nextPlayer();
+	}
+		
+	else{		
+		diceNum = dice;
+		// Display result in CURRENT Score
+		var diceDOM = document.querySelector('.dice');
+		diceDOM.style.display = 'block';    // displaying dice again which was hid previously
+		diceDOM.src = 'dice-' + dice + '.png';
 
-	// Display result in CURRENT Score
-	var diceDOM = document.querySelector('.dice');
-	diceDOM.style.display = 'block';    // displaying dice again which was hid previosuly
-	diceDOM.src = 'dice-' + dice + '.png';
-
-	//Update the round score if the rolled number IS NOT A 1.
-
-	if(dice != 1){
 		//Addscore
 		roundScore = roundScore + dice;
 		document.querySelector('#current-' + activePlayer).textContent = roundScore;
-	}	else{
-		nextPlayer();
-	}
 
-	}
-
+		
+		
+	}//endElse
+}//if(gameplaying)
 
 	});  //function() is set as an anonymous function because its only going be used in this particular case. Other way to set are callback functions
 
@@ -45,6 +56,7 @@
 
 
 	document.querySelector('.btn-hold').addEventListener('click', function(){
+	console.log("Clicked on HOLD");
 	if(gamePlaying){
 			//Add the current score to players global score
 			scores[activePlayer] = scores[activePlayer] + roundScore;
@@ -54,19 +66,13 @@
 		
 
 		//Check if player won the game
-		if(scores[activePlayer] >= 20 ){
-			document.querySelector('#name-' + activePlayer).textContent = "Winner!";
-			document.querySelector('.dice').style.display = 'none';
-			document.querySelector('.player-'+ activePlayer + '-panel').classList.add('winner');
-			document.querySelector('.player-'+ activePlayer + '-panel').classList.remove('winner');
-			
-			gamePlaying = false;
+		console.log("Checking Winner...");
+		checkWinner(activePlayer, scores[activePlayer]);
+		console.log("No Winner found");
 
-
-		}else {
-			//Next player
-			nextPlayer();
-		}
+		//Next player
+		nextPlayer();
+		
 	}
 
 	});
@@ -99,6 +105,7 @@
 		scores=[0,0];
 		activePlayer = 0;
 		roundScore = 0;	
+		diceNum = 0;
 
 		gamePlaying = true;
 		// Dice value not displayed at the beginning of the game
@@ -122,6 +129,22 @@
 	document.querySelector('.player-0-panel').classList.add('active');
 
 	}
+
+	function checkWinner(activePlayer, score){
+		//Check if player won the game
+		console.log("Active Player "+ activePlayer + " score " + score);
+
+		if(scores[activePlayer] >= 20 ){
+			document.querySelector('#name-' + activePlayer).textContent = "Winner!";
+			document.querySelector('.dice').style.display = 'none';
+			document.querySelector('.player-'+ activePlayer + '-panel').classList.add('winner');
+			document.querySelector('.player-'+ activePlayer + '-panel').classList.remove('winner');
+			
+			gamePlaying = false;
+			console.log("We have a winner!!");
+
+	}
+}
 
 
 
