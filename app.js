@@ -10,7 +10,7 @@
 	*/
 
 
-	var gamePlaying;
+	var gamePlaying, diceNum;
 	init();
 
 
@@ -19,6 +19,7 @@
 	if(gamePlaying){
 	// generate random number
 	var dice =Math.floor((Math.random() * 6) + 1);
+	diceNum = dice;
 
 	// Display result in CURRENT Score
 	var diceDOM = document.querySelector('.dice');
@@ -31,7 +32,7 @@
 		//Addscore
 		roundScore = roundScore + dice;
 		document.querySelector('#current-' + activePlayer).textContent = roundScore;
-	}else{
+	}	else{
 		nextPlayer();
 	}
 

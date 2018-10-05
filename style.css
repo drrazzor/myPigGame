@@ -16,9 +16,10 @@
 }
 
 body {
-    background-image: linear-gradient(rgba(62, 20, 20, 0.4), rgba(62, 20, 20, 0.4)), url(pigbk.jpg);
+    background-image: url(pigbk.jpg);
     background-size: cover;
-    background-position: center;
+    background-repeat: no-repeat;
+    background-position: center middle;
     font-family: Lato;
     font-weight: 300;
     position: relative;
@@ -70,7 +71,7 @@ body {
     margin-bottom: 130px;
 }
 
-.active { background-color: #f7f7f7; }
+.active { background-color: #e0e0e0; }
 .active .player-name { font-weight: 300; }
 
 .active .player-name::after {
