@@ -17,9 +17,11 @@
 	document.querySelector('.btn-roll').addEventListener('click', function(){
 
 	if(gamePlaying){
+
 	// generate random number
 	var dice =Math.floor((Math.random() * 6) + 1);
 	console.log("dice value "+dice+" diceNum value " + diceNum);
+	
 	if(dice == 6 && diceNum == 6){
 		roundScore = 0;
 		scores[activePlayer] = 0;
@@ -28,10 +30,20 @@
 		nextPlayer();
 		//Update the round score if the rolled number IS NOT A 1.
 	}else if(dice == 1){
+		var diceDOM = document.querySelector('.dice');
+		diceDOM.style.display = 'block';    // displaying dice again which was hid previously
+		diceDOM.src = 'dice-' + dice + '.png';
 		console.log("Rolled a 1.. Switching player");
 		roundScore = roundScore + dice;
 		document.querySelector('#current-' + activePlayer).textContent = roundScore;
-		nextPlayer();
+
+		setTimeout(function () {
+        if (dice == 1) {
+			nextPlayer();
+            }
+    }, 500);       // displaying Dice for 2 seconds before moving to next player.
+
+
 	}
 		
 	else{		
@@ -68,7 +80,7 @@
 		//Check if player won the game
 		console.log("Checking Winner...");
 		checkWinner(activePlayer, scores[activePlayer]);
-		console.log("No Winner found");
+		
 
 		//Next player
 		nextPlayer();
@@ -110,7 +122,8 @@
 		gamePlaying = true;
 		// Dice value not displayed at the beginning of the game
 		document.querySelector('.dice').style.display = 'none';
-
+		console.clear();
+		console.log("New game started!");
 
 	// Setting all the scores to zero at the beginning of the game
 
@@ -143,6 +156,8 @@
 			gamePlaying = false;
 			console.log("We have a winner!!");
 
+	}else{
+		console.log("No Winner found");
 	}
 }
 
