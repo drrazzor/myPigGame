@@ -10,7 +10,7 @@
 	*/
 
 
-	var gamePlaying, diceNum;
+	var gamePlaying, diceNum, userWinScore;
 	init();
 
 
@@ -141,13 +141,16 @@
 	document.querySelector('.player-1-panel').classList.remove('active');
 	document.querySelector('.player-0-panel').classList.add('active');
 
+	//Setting the Winning score enetered by user
+	userWinScore = document.getElementById('userScore').value;
+	console.log("Winning score changed to " + userWinScore);
 	}
 
 	function checkWinner(activePlayer, score){
 		//Check if player won the game
 		console.log("Active Player "+ activePlayer + " score " + score);
 
-		if(scores[activePlayer] >= 20 ){
+		if(scores[activePlayer] >= userWinScore  || scores[activePlayer] >= 20 ){
 			document.querySelector('#name-' + activePlayer).textContent = "Winner!";
 			document.querySelector('.dice').style.display = 'none';
 			document.querySelector('.player-'+ activePlayer + '-panel').classList.add('winner');
