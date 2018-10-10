@@ -10,7 +10,7 @@
 	*/
 
 
-	var gamePlaying, diceNum, userWinScore;
+	var gamePlaying, diceNum, dice2Num, userWinScore;
 	init();
 
 
@@ -21,24 +21,32 @@
 	// generate random number
 	var dice =Math.floor((Math.random() * 6) + 1);
 	console.log("dice value "+dice+" diceNum value " + diceNum);
+	var dice2 =Math.floor((Math.random() * 6) + 1);
+	console.log("Dice2 value "+dice2+" diceNum value " + dice2Num);
+
+
 	
-	if(dice == 6 && diceNum == 6){
+	if(dice == 6 && diceNum == 6 || dice2 == 6 && dice2Num == 6){
 		roundScore = 0;
 		scores[activePlayer] = 0;
 		document.querySelector('#current-' + activePlayer).textContent = roundScore;
 		console.log("Rolled 6 twice.. Player back to score Zero. Swithing players");
 		nextPlayer();
 		//Update the round score if the rolled number IS NOT A 1.
-	}else if(dice == 1){
+	}else if(dice == 1 || dice2 == 1){
 		var diceDOM = document.querySelector('.dice');
 		diceDOM.style.display = 'block';    // displaying dice again which was hid previously
 		diceDOM.src = 'dice-' + dice + '.png';
+		//displaying second dice
+		var dice2DOM = document.querySelector('.dice2');
+		dice2DOM.style.display = 'block';    // displaying dice again which was hid previously
+		dice2DOM.src = 'dice-' + dice2 + '.png';
 		console.log("Rolled a 1.. Switching player");
-		roundScore = roundScore + dice;
+		roundScore = roundScore + dice + dice2;
 		document.querySelector('#current-' + activePlayer).textContent = roundScore;
 
 		setTimeout(function () {
-        if (dice == 1) {
+        if (dice==1 || dice2==1) {
 			nextPlayer();
             }
     }, 500);       // displaying Dice for 2 seconds before moving to next player.
@@ -48,13 +56,17 @@
 		
 	else{		
 		diceNum = dice;
+		dice2Num = dice2;
 		// Display result in CURRENT Score
 		var diceDOM = document.querySelector('.dice');
+		var dice2DOM = document.querySelector('.dice2');
 		diceDOM.style.display = 'block';    // displaying dice again which was hid previously
+		dice2DOM.style.display = 'block';
 		diceDOM.src = 'dice-' + dice + '.png';
+		dice2DOM.src = 'dice-' + dice2 + '.png';
 
 		//Addscore
-		roundScore = roundScore + dice;
+		roundScore = roundScore + dice + dice2;
 		document.querySelector('#current-' + activePlayer).textContent = roundScore;
 
 		
@@ -99,12 +111,10 @@
 		document.getElementById('current-0').textContent='0';
 		document.getElementById('current-1').textContent='0';
 
-		//document.querySelector('.player-0-panel').classList.remove('active');
-		//document.querySelector('.player-1-panel').classList.add('active');
-
 		document.querySelector('.player-0-panel').classList.toggle('active');   //inverts the state
 		document.querySelector('.player-1-panel').classList.toggle('active');
 		document.querySelector('.dice').style.display = 'none';
+		document.querySelector('.dice2').style.display = 'none';
 
 	}
 
@@ -118,10 +128,12 @@
 		activePlayer = 0;
 		roundScore = 0;	
 		diceNum = 0;
+		dice2Num = 0;
 
 		gamePlaying = true;
 		// Dice value not displayed at the beginning of the game
 		document.querySelector('.dice').style.display = 'none';
+		document.querySelector('.dice2').style.display = 'none';
 		console.clear();
 		console.log("New game started!");
 
@@ -150,9 +162,10 @@
 		//Check if player won the game
 		console.log("Active Player "+ activePlayer + " score " + score);
 
-		if(scores[activePlayer] >= userWinScore  || scores[activePlayer] >= 20 ){
+		if(scores[activePlayer] >= userWinScore  || scores[activePlayer] >= 100 ){
 			document.querySelector('#name-' + activePlayer).textContent = "Winner!";
 			document.querySelector('.dice').style.display = 'none';
+			document.querySelector('.dice2').style.display = 'none';
 			document.querySelector('.player-'+ activePlayer + '-panel').classList.add('winner');
 			document.querySelector('.player-'+ activePlayer + '-panel').classList.remove('winner');
 			
