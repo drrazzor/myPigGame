@@ -155,7 +155,13 @@
 
 	//Setting the Winning score enetered by user
 	userWinScore = document.getElementById('userScore').value;
-	console.log("Winning score changed to " + userWinScore);
+	console.log("Winning score set to " +userWinScore+ " by user");
+		
+	if(userWinScore == null || userWinScore == 0){
+		userWinScore=100;		
+		console.log("Winning score defaults to " + userWinScore);
+	}
+		
 	}
 
 	function checkWinner(activePlayer, score){
