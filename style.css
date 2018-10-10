@@ -108,12 +108,13 @@ body {
 }
 
 .player-current-box {
-    background-color: #EB4D4D;
+    background-color: #4286f4;   // #EB4D4D;
     color: #fff;
     width: 40%;
     margin: 0 auto;
     padding: 12px;
     text-align: center;
+    border-radius: 30px;
 }
 
 .player-current-label {
@@ -121,6 +122,7 @@ body {
     margin-bottom: 10px;
     font-size: 12px;
     color: #222;
+
 }
 
 .player-current-score {

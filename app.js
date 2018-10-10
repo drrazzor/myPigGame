@@ -157,7 +157,7 @@
 	userWinScore = document.getElementById('userScore').value;
 	console.log("Winning score set to " +userWinScore+ " by user");
 		
-	if(userWinScore == null || userWinScore == 0){
+	if(userWinScore == null || userWinScore == 0){   //userWinScore == null || userWinScore == 0)
 		userWinScore=100;		
 		console.log("Winning score defaults to " + userWinScore);
 	}
